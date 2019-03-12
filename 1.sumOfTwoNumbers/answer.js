@@ -3,8 +3,6 @@
  * @param {number} target
  * @return {number[]}
  */
-// import HashTable from '../HashTable.js';
-
 // 测试用例
 var nums = [4,1,7,11,15];
 var target = 8;
