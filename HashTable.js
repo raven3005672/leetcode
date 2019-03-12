@@ -1,5 +1,5 @@
 // 创建构造函数HashTable
-export function HashTable() {
+function HashTable() {
     // 初始化哈希表的记录条数size
     var size = 0;
     // 创建对象用于接受键值对
@@ -73,3 +73,5 @@ export function HashTable() {
         res = {};
     };
 }
+
+module.exports = HashTable;
