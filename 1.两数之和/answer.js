@@ -1,4 +1,3 @@
-import {HashTable} from "../HashTable.js";
 /**
  * @param {number[]} nums
  * @param {number} target
@@ -7,8 +6,8 @@ import {HashTable} from "../HashTable.js";
 // import HashTable from '../HashTable.js';
 
 // 测试用例
-var nums = [2,7,11,15];
-var target = 9;
+var nums = [4,1,7,11,15];
+var target = 8;
 // 暴力法
 // var twoSum = function(nums, target) {
 //     let withoutCheckIndex;
@@ -24,14 +23,14 @@ var target = 9;
 // 哈希表正是为此目的而构建的，它支持以 近似 恒定的时间进行快速查找。
 // 我用“近似”来描述，是因为一旦出现冲突，查找用时可能会退化到 O(n)。
 // 但只要你仔细地挑选哈希函数，在哈希表中进行查找的用时应当被摊销为 O(1)。
+var HashTable = require('../HashTable');
 var twoSum = function(nums, target) {
     let hashTable = new HashTable(),
-    arrLength = nums.length,
-    sub = [];
-    for (let i = 0; i < arrLength; i++) {
+        sub = [];
+    for (let i = 0; i < nums.length; i++) {
         hashTable.add(i, nums[i]);
     }
-    for (var j = 0; j < arrLength; j++) {
+    for (var j = 0; j < nums.length; j++) {
         if (hashTable.containValue(target - nums[j]) && target !== 2 * nums[j]) {
             sub.push(j);
             let antherIndex = Number(hashTable.getKey(target - nums[j]));
@@ -46,6 +45,5 @@ var twoSum = function(nums, target) {
     }
 };
 
-// console.log(asdf)
-// console.log(twoSum(nums, target))
+console.log(twoSum(nums, target))
 
