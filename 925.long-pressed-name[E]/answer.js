@@ -3,22 +3,23 @@
  * @param {string} typed
  * @return {boolean}
  */
-var isLongPressedName = function(name, typed) {
-    if(name.length>typed.length){return false}
-    let i = 0
-    let j = 0
-    while(i<name.length){
-        if(name[i]==typed[j]){
-            j++
-            i++
-        }else if(i!=0&&name[i-1]==typed[j]){
-            j++
-        }else{
-            return false
-        }
+var isLongPressedName = function (name, typed) {
+  const n = name.length, m = typed.length;
+  let i = 0, j = 0;
+  while (j < m) {
+    if (i < n && name[i] === typed[j]) {
+      i++;
+      j++;
+    } else if (j > 0 && typed[j] === typed[j - 1]) {
+      j++;
+    } else {
+      return false;
     }
-        for(;j<typed.length;j++){
-            if(typed[j]!=name[i-1]){return false}
-        }
-    return true
+  }
+  return i === n;
 };
+
+/*
+ * 思路：双指针
+ * 时间复杂度：O(n+m)，空间复杂度：O(1)
+ */
