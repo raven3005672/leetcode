@@ -4,8 +4,10 @@
  * @return {boolean}
  */
 var isAnagram = function(s, t) {
-    function str(xx) {
-        return xx.split('').sort().join('');
-    }
-    return str(s) == str(t)
+  return s.length == t.length && [...s].sort().join('') === [...t].sort().join('')
 };
+
+/**
+ * 思路：排序
+ * 时间复杂度：O(nlogn)，空间复杂度：O(logn)
+ */
