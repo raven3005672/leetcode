@@ -2,37 +2,32 @@
  * @param {number[]} bills
  * @return {boolean}
  */
-var lemonadeChange = function (bills) {
-    let pocket = {
-        five: 0,
-        ten: 0,
-        twenty: 0
-    };
-    for (let i = 0; i < bills.length; i++) {
-        switch (bills[i]) {
-            case 5:
-                pocket.five += 1;
-                break;
-            case 10:
-                if (pocket.five > 0) {
-                    pocket.five -= 1;
-                    pocket.ten += 1;
-                    break;
-                } else {
-                    return false;
-                }
-                case 20:
-                    if (pocket.five > 0 && pocket.ten > 0) {
-                        pocket.five -= 1;
-                        pocket.ten -= 1;
-                        pocket.twenty += 1
-                    } else if (pocket.five > 2) {
-                        pocket.five -= 3;
-                        pocket.twenty += 1;
-                    } else {
-                        return false;
-                    }
-        }
-    }
-    return true;
+var lemonadeChange = function(bills) {
+  let five = 0, ten = 0;
+  for (const bill of bills) {
+      if (bill === 5) {
+          five += 1;
+      } else if (bill === 10) {
+          if (five === 0) {
+              return false;
+          }
+          five -= 1;
+          ten += 1;
+      } else {
+          if (five > 0 && ten > 0) {
+              five -= 1;
+              ten -= 1;
+          } else if (five >= 3) {
+              five -= 3;
+          } else {
+              return false;
+          }
+      }
+  }
+  return true;
 };
+
+/**
+ * 思路：模拟+贪心
+ * 时间复杂度：O(n)，空间复杂度：O(1)
+ */
