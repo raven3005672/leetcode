@@ -2,15 +2,12 @@
  * @param {number[]} cost
  * @return {number}
  */
-var minCostClimbingStairs = function(cost) {
-    //动态规划
-    var a = cost[0];
-    var b = cost[1];
-    var i = 2;
-    while(i<cost.length){
-        var temp = Math.min(a,b) + cost[i++];
-        a = b;
-        b = temp;
-    }
-    return Math.min(a,b);
+var minCostClimbingStairs = function (cost) {
+  const n = cost.length;
+  const dp = new Array(n + 1);
+  dp[0] = dp[1] = 0;
+  for (let i = 2; i <= n; i++) {
+    dp[i] = Math.min(dp[i - 1] + cost[i - 1], dp[i - 2] + cost[i - 2]);
+  }
+  return dp[n];
 };
