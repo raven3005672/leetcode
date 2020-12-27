@@ -3,21 +3,17 @@
  * @param {string} t
  * @return {boolean}
  */
-var isIsomorphic = function(s, t) {
-    const handle = str => {
-        let basedNum = 0;
-        const map = {};
-        const result = [];
-        for (let char of str) {
-            if (map[char] === undefined) {
-                const current = ++basedNum;
-                map[char] = current;
-                result.push(current);
-            } else {
-                result.push(map[char]);
-            }
-        }
-        return result.join('');
+var isIsomorphic = function (s, t) {
+  const s2t = {};
+  const t2s = {};
+  const len = s.length;
+  for (let i = 0; i < len; ++i) {
+    const x = s[i], y = t[i];
+    if ((s2t[x] && s2t[x] !== y) || (t2s[y] && t2s[y] !== x)) {
+      return false;
     }
-    return handle(s) === handle(t)
+    s2t[x] = y;
+    t2s[y] = x;
+  }
+  return true;
 };
