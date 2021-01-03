@@ -2,16 +2,18 @@
  * @param {number[]} stones
  * @return {number}
  */
-var lastStoneWeight = function(stones) {
-    stones.sort((a,b)=>b-a);
-    for(var i=0,j=1;i<stones.length&&j<stones.length;){
-        if(stones[i] === stones[j]){
-            stones.splice(0, 2);
-        }else{
-            stones[i] = stones[i] - stones[j];
-            stones.splice(j, 1);
-            stones.sort((a,b)=>b-a);
-        }
+var lastStoneWeight = function (stones) {
+  const pq = new MaxPriorityQueue();
+  for (const stone of stones) {
+    pq.enqueue('x', stone);
+  }
+
+  while (pq.size() > 1) {
+    const a = pq.dequeue()['priority'];
+    const b = pq.dequeue()['priority'];
+    if (a > b) {
+      pq.enqueue('x', a - b);
     }
-    return stones[0] || 0;
+  }
+  return pq.isEmpty() ? 0 : pq.dequeue()['priority'];
 };

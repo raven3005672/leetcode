@@ -3,36 +3,27 @@
  * @param {number} n
  * @return {boolean}
  */
-var canPlaceFlowers = function(flowerbed, n) {
-    //主要考虑边界条件：当n为0，开头和结尾位置的连续0
-    if(n === 0) return true;
-    if(!flowerbed.includes(1)){
-        return (flowerbed.length+1)/2 >= n;
+var canPlaceFlowers = function (flowerbed, n) {
+  let count = 0;
+  const m = flowerbed.length;
+  let prev = -1;
+  for (let i = 0; i < m; i++) {
+    if (flowerbed[i] === 1) {
+      if (prev < 0) {
+        count += Math.floor(i / 2);
+      } else {
+        count += Math.floor((i - prev - 2) / 2);
+      }
+      if (count >= n) {
+        return true;
+      }
+      prev = i;
     }
-    var res = flowerbed.join('').split('1');
-    var temp;
-    for(var i=0;i<res.length;i++){
-        if(i===0 || i === res.length-1){
-            temp = res[i].length;
-            while(temp>=2){
-                n--;
-                if(n==0){
-                    return true;
-                }
-                temp -= 2;
-            }
-        }else{
-            temp = res[i].length;
-            while(temp>2){
-                n--;
-                if(n==0){
-                    return true;
-                }
-                temp -= 2;
-            }
-        }
-    }
-    return n === 0;
+  }
+  if (prev < 0) {
+    count += (m + 1) / 2;
+  } else {
+    count += (m - prev - 1) / 2;
+  }
+  return count >= n;
 };
-
-// 思考：前后补零

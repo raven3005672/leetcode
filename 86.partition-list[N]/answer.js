@@ -10,22 +10,22 @@
  * @param {number} x
  * @return {ListNode}
  */
-var partition = function(head, x) {
-    let big = new ListNode(0);
-    let small = new ListNode(0);
-    let bigHead = big;
-    let smallHead = small;
-    while (head != null) {
-        if (head.val < x) {
-            small.next = head;
-            small = small.next;
-        } else {
-            big.next = head;
-            big = big.next;
-        }
-        head = head.next;
+var partition = function (head, x) {
+  let small = new ListNode(0);
+  const smallHead = small;
+  let large = new ListNode(0);
+  const largeHead = large;
+  while (head !== null) {
+    if (head.val < x) {
+      small.next = head;
+      small = small.next;
+    } else {
+      large.next = head;
+      large = large.next;
     }
-    small.next = bigHead.next;
-    big.next = null;
-    return smallHead.next;
+    head = head.next;
+  }
+  large.next = null;
+  small.next = largeHead.next;
+  return smallHead.next;
 };
