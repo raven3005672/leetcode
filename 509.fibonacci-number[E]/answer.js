@@ -2,14 +2,15 @@
  * @param {number} N
  * @return {number}
  */
-var fib = function(N) {
-    if (N == 0) return 0;
-    let last = 0;
-    let result = 1;
-    for (let i = 2; i <= N; i++) {
-        let tmp = result;
-        result = result + last;
-        last = tmp;
-    }
-    return result;
+var fib = function (n) {
+  if (n < 2) {
+    return n;
+  }
+  let p = 0, q = 0, r = 1;
+  for (let i = 2; i <= n; i++) {
+    p = q;
+    q = r;
+    r = p + q;
+  }
+  return r;
 };
