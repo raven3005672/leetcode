@@ -3,19 +3,15 @@
  * @param {number} K
  * @return {number[]}
  */
-var addToArrayForm = function(A, K) {
-    const numArr1 = A.reverse();//A的反转形式[1,2,0,0]=>[0, 0, 2, 1]
-    const numArr2 = K.toString().split('').reverse().map(x => +x);// K数字的数组反转形式 123=>[3,2, 1]
-    const maxLength = Math.max(numArr1.length, numArr2.length);
-    const res = [];// 结果
-    let carry = false; // 进位标记
-    for (let i = 0; i < maxLength; i++) {
-        sum = (numArr1[i] ? numArr1[i] : 0) + (numArr2[i] ? numArr2[i] : 0) + (carry ? 1 : 0)
-        carry = sum >= 10;
-        res.push(sum % 10)
+var addToArrayForm = function (A, K) {
+  const res = [];
+  const n = A.length;
+  for (let i = n - 1; i >= 0 || K > 0; --i, K = Math.floor(K / 10)) {
+    if (i >= 0) {
+      K += A[i];
     }
-    if (carry) {
-        res.push(1)
-    }
-    return res.reverse();
+    res.push(K % 10);
+  }
+  res.reverse();
+  return res;
 };
