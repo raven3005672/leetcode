@@ -3,12 +3,16 @@
  * @param {number} k
  * @return {number}
  */
-var findMaxAverage = function(nums, k) {
-    var maxSum = nums.slice(0, k).reduce((x, y) => x+y, 0);
-    var temp = maxSum;
-    for(var i=0,len=nums.length;i<len-k;i++){
-        temp = temp + nums[k+i] - nums[i]
-        maxSum = Math.max(maxSum, temp);
-    }
-    return maxSum/k;
+var findMaxAverage = function (nums, k) {
+  let sum = 0;
+  const n = nums.length;
+  for (let i = 0; i < k; i++) {
+    sum += nums[i];
+  }
+  let maxSum = sum;
+  for (let i = k; i < n; i++) {
+    sum = sum - nums[i - k] + nums[i];
+    maxSum = Math.max(maxSum, sum);
+  }
+  return maxSum / k;
 };
