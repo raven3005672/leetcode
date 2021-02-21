@@ -2,12 +2,11 @@
  * @param {number[]} nums
  * @return {number}
  */
-var arrayPairSum = function(nums) {
-    var count = 0;
-    nums.sort((a, b) => a - b).map((a, b) => {
-        if (b % 2 == 0) {
-            count += a;
-        }
-    });
-    return count;
+var arrayPairSum = function (nums) {
+  nums.sort((a, b) => a - b);
+  let ans = 0;
+  for (let i = 0; i < nums.length; i += 2) {
+    ans += nums[i];
+  }
+  return ans;
 };
