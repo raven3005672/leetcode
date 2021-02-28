@@ -2,13 +2,16 @@
  * @param {number[]} A
  * @return {boolean}
  */
-var isMonotonic = function(A) {
-    var isPure=true;   
-    var isPure1=true;
-    for(var i=0; i<A.length-1;i++){
-        isPure &= A[i]<=A[i+1];
-        isPure1 &=A[i]>=A[i+1];
+var isMonotonic = function (A) {
+  let inc = true, dec = true;
+  const n = A.length;
+  for (let i = 0; i < n - 1; ++i) {
+    if (A[i] > A[i + 1]) {
+      inc = false;
     }
-    
-    return isPure || isPure1;
+    if (A[i] < A[i + 1]) {
+      dec = false;
+    }
+  }
+  return inc || dec;
 };

@@ -2,15 +2,13 @@
  * @param {number[][]} A
  * @return {number[][]}
  */
-var transpose = function (A) {
-    var m = A.length;
-    var n = A[0].length;
-    var res = [];
-    for(var i=0;i<n;i++){
-        res[i] = [];
-        for(var j=0;j<m;j++){
-            res[i][j] = A[j][i];
-        }
+var transpose = function (matrix) {
+  const m = matrix.length, n = matrix[0].length;
+  const transposed = new Array(n).fill(0).map(() => new Array(m).fill(0));
+  for (let i = 0; i < m; i++) {
+    for (let j = 0; j < n; j++) {
+      transposed[j][i] = matrix[i][j];
     }
-    return res;
+  }
+  return transposed;
 };
