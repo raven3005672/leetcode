@@ -3,28 +3,29 @@
  * @return {string[][]}
  */
 var partition = function (s) {
-  const n = s.length
-  if (n === 0) return []
-  const res = [], dp = Array.from({ length: n }, () => Array(n).fill(0))
-  for (let i = n - 1; i >= 0; i--) { // 动规
-    for (let j = i; j < n; j++) {
-      dp[i][j] = s[i] === s[j] && (j - i < 2 || dp[i + 1][j - 1])
+  const dfs = (i) => {
+    if (i === n) {
+      ret.push(ans.slice());
+      return;
+    }
+    for (let j = i; j < n; ++j) {
+      if (f[i][j]) {
+        ans.push(s.slice(i, j + 1));
+        dfs(j + 1);
+        ans.pop();
+      }
     }
   }
-  function bt(path, start) { // 回溯
-    if (start === n) res.push([...path])
-    for (let i = start; i < n; i++) {
-      if (!dp[start][i]) continue
-      path.push(s.substring(start, i + 1))
-      bt(path, i + 1)
-      path.pop()
-    }
-  }
-  bt([], 0)
-  return res
-};
 
-/**
- * 思路：动态规划
- *
- */
+  const n = s.length;
+  const f = new Array(n).fill(0).map(() => new Array(n).fill(true));
+  let ret = [], ans = [];
+
+  for (let i = n - 1; i >= 0; --i) {
+    for (let j = i + 1; j < n; ++j) {
+      f[i][j] = (s[i] === s[j]) && f[i + 1][j - 1];
+    }
+  }
+  dfs(0);
+  return ret;
+};
