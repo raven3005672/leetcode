@@ -3,35 +3,29 @@
  * @return {number[]}
  */
 var spiralOrder = function (matrix) {
-  let arrs = matrix.slice();
-  let result = [];
-  let flag = 0;
-  let temp = [];
-  while (arrs.length && arrs[0].length) {
-    if (flag == 0) {
-      temp = arrs[0].slice();
-      arrs.shift();
-    } else if (flag == 1) {
-      temp = Array.from({ length: arrs.length }, (v, k) => arrs[k][arrs[0].length - 1]);
-      arrs.forEach((arr) => {
-        arr.pop();
-      });
-    } else if (flag == 2) {
-      temp = arrs[arrs.length - 1].reverse().slice();
-      arrs.pop();
-    } else if (flag == 3) {
-      temp = Array.from({ length: arrs.length }, (v, k) => arrs[arrs.length - k - 1][0]);
-      arrs.forEach((arr) => {
-        arr.shift();
-      });
-    }
-    result = result.concat(temp);
-    flag = (flag + 1) % 4;
+  if (!matrix.length || !matrix[0].length) {
+    return [];
   }
-  return result;
-};
 
-/**
- * 思路：模拟
- * 时间复杂度：O(m*n)，空间复杂度：O(1)
- */
+  const rows = matrix.length, columns = matrix[0].length;
+  const order = [];
+  let left = 0, right = columns - 1, top = 0, bottom = rows - 1;
+  while (left <= right && top <= bottom) {
+    for (let column = left; column <= right; column++) {
+      order.push(matrix[top][column]);
+    }
+    for (let row = top + 1; row <= bottom; row++) {
+      order.push(matrix[row][right]);
+    }
+    if (left < right && top < bottom) {
+      for (let column = right - 1; column > left; column--) {
+        order.push(matrix[bottom][column]);
+      }
+      for (let row = bottom; row > top; row--) {
+        order.push(matrix[row][left]);
+      }
+    }
+    [left, right, top, bottom] = [left + 1, right - 1, top + 1, bottom - 1];
+  }
+  return order;
+};
