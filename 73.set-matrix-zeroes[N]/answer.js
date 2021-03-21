@@ -2,24 +2,27 @@
  * @param {number[][]} matrix
  * @return {void} Do not return anything, modify matrix in-place instead.
  */
-var setZeroes = function(matrix) {
-    let rowLen = matrix.length
-    let colLen = matrix[0].length;
-    for(let i = 0;i<rowLen;i++){
-        for(let j = 0;j<colLen;j++){
-            if(matrix[i][j] == 0&&1/matrix[i][j]>0){
-               for(let rowI = 0;rowI<rowLen;rowI++){
-                    if(matrix[rowI][j] != 0){
-                       matrix[rowI][j] = -0;
-                    }
-                }
-                for(let colI = 0;colI<colLen;colI++){
-                    if(matrix[i][colI] != 0){
-                       matrix[i][colI] = -0;
-                    }
-                }
-            }
-        }
+var setZeroes = function (matrix) {
+  const m = matrix.length, n = matrix[0].length;
+  let flagCol0 = false;
+  for (let i = 0; i < m; i++) {
+    if (matrix[i][0] === 0) {
+      flagCol0 = true;
     }
-    return matrix;
+    for (let j = 1; j < n; j++) {
+      if (matrix[i][j] === 0) {
+        matrix[i][0] = matrix[0][j] = 0;
+      }
+    }
+  }
+  for (let i = m - 1; i >= 0; i--) {
+    for (let j = 1; j < n; j++) {
+      if (matrix[i][0] === 0 || matrix[0][j] === 0) {
+        matrix[i][j] = 0;
+      }
+    }
+    if (flagCol0) {
+      matrix[i][0] = 0;
+    }
+  }
 };
