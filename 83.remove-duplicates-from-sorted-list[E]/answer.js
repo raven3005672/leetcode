@@ -9,20 +9,18 @@
  * @param {ListNode} head
  * @return {ListNode}
  */
-var deleteDuplicates = function(head) {
-    if (!head) {
-        return head;
-    }
-    if (head.val == null) {
-        return head;
-    }
-    let current = head;
-    while(current.next) {
-        if (current.val === current.next.val) {
-            current.next = current.next.next;
-        } else {
-            current = current.next;
-        }
-    }
+var deleteDuplicates = function (head) {
+  if (!head) {
     return head;
+  }
+
+  let cur = head;
+  while (cur.next) {
+    if (cur.val === cur.next.val) {
+      cur.next = cur.next.next;
+    } else {
+      cur = cur.next;
+    }
+  }
+  return head;
 };
