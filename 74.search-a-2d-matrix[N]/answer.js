@@ -3,16 +3,19 @@
  * @param {number} target
  * @return {boolean}
  */
-var searchMatrix = function(matrix, target) {
-    let n = matrix.length;
-    if (!n) return false;
-    let m = matrix[0].length;
-    for (let i = 0; i < n ; i++) {
-        if (matrix[i][0] <= target && matrix[i][m - 1] >= target) {
-            if (matrix[i].includes(target)) {
-                return true;
-            }
-        }
+var searchMatrix = function (matrix, target) {
+  const m = matrix.length, n = matrix[0].length;
+  let low = 0, high = m * n - 1;
+  while (low <= high) {
+    const mid = Math.floor((high - low) / 2) + low;
+    const x = matrix[Math.floor(mid / n)][mid % n];
+    if (x < target) {
+      low = mid + 1;
+    } else if (x > target) {
+      high = mid - 1;
+    } else {
+      return true;
     }
-    return false;
+  }
+  return false;
 };

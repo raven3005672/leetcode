@@ -1,20 +1,52 @@
-var clumsy = function(N) {
-    switch(N){
-        case 1:return 1;
-        case 2:return 2;
-        case 3:return 6; 
-        case 4:return 7;
+/**
+ * @param {number} N
+ * @return {number}
+ */
+var clumsy = function (N) {
+  const stack = [N--];
+
+  let index = 0; // 用于控制乘、除、加、减
+  while (N > 0) {
+    if (index % 4 == 0) {
+      stack.push(stack.pop() * N);
+    } else if (index % 4 == 1) {
+      const cur = stack.pop();
+      stack.push(cur > 0 ? Math.floor(cur / N) : Math.ceil(cur / N));
+    } else if (index % 4 == 2) {
+      stack.push(N);
+    } else {
+      stack.push(-N);
     }
-    if(N%4 == 3){//3,7,11    F(11) = 11*10/9  +  8-7*6/5  +  4-3*2/1 = 12 + 0 + -2
-        return N-1;
-    }
-    if(N%4 == 2){//2,6,10    F(10) = 10*9/8  +  7-6*5/4  +  3-2*1 = 11 + 0 + 1
-        return N+2;
-    }
-    if(N%4 == 1){//1,5,9    F(9) = 9*8/7  +  6-5*4/3  +  2-1 = 10 + 0 + 1
-        return N+2;
-    }
-    if(N%4 == 0){//4,8,12    F(8) = 8*7/6  +  5-4*3/2  +  1 = 9 -1 + 1
-        return N+1;
-    }
+    index++;
+    N--;
+  }
+
+  // 把栈中所有的数字依次弹出求和
+  let sum = 0;
+  stack.forEach((element) => {
+    sum += element;
+  })
+  return sum;
+};
+
+
+// 数学方法
+var clumsy = function (N) {
+  if (N === 1) {
+    return 1;
+  } else if (N === 2) {
+    return 2;
+  } else if (N === 3) {
+    return 6;
+  } else if (N === 4) {
+    return 7;
+  }
+
+  if (N % 4 === 0) {
+    return N + 1;
+  } else if (N % 4 <= 2) {
+    return N + 2;
+  } else {
+    return N - 1;
+  }
 };
