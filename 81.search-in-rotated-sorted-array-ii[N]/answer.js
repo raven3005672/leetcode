@@ -4,29 +4,31 @@
  * @return {boolean}
  */
 var search = function(nums, target) {
-    let left = 0, right = nums.length - 1;
-    let mid;
-    while(left <= right) {
-        mid = ~~((left + right) / 2);
-        if (nums[mid] == target) return true;
-        if (nums[left] == nums[mid]) {
-            left++;
-        } else if (nums[left] < nums[mid]) {
-            if (nums[left] <= target && target < nums[mid]) {
-                right = mid - 1;
-            } else {
-                left = mid + 1;
-            }
-        } else if (nums[left] > nums[mid]) {
-            if (nums[mid] < target && target <= nums[right]) {
-                left = mid + 1;
-            } else {
-                right = mid - 1;
-            }
-        }
+  let left = 0, right = nums.length - 1;
+  let mid;
+  while(left <= right) {
+    mid = ~~((left + right) / 2);
+    if (nums[mid] == target) {
+      return true;
     }
-    return false;
-};
+    if (nums[left] == nums[mid]) {
+      left++;
+    } else if (nums[left] < nums[mid]) {
+      if (nums[left] <= target && target < nums[mid]) {
+        right = mid - 1;
+      } else {
+        left = mid + 1;
+      }
+    } else if (nums[left] > nums[mid]) {
+      if (nums[mid] < target && target <= nums[right]) {
+        left = mid + 1;
+      } else {
+        right = mid - 1;
+      }
+    }
+  }
+  return false;
+}
 
 // 二分查找
 // nums[start] == nums[mid]分不清前有序还是后有序，此时start++，相当于去掉一个重复的干扰项
