@@ -9,19 +9,21 @@
  * @param {TreeNode} root
  * @return {number}
  */
-var minDiffInBST = function(root) {
-    var arr = [];
-    function dfs(root){
-        if(!root) return;
-        arr.push(root.val);
-        dfs(root.left);
-        dfs(root.right);
+var minDiffInBST = function (root) {
+  let ans = Number.MAX_SAFE_INTEGER, pre = -1;
+  const dfs = (root) => {
+    if (root === null) {
+      return;
     }
-    dfs(root);
-    arr.sort((a,b)=>a-b);
-    var res = Number.MAX_SAFE_INTEGER;
-    for(var i=1;i<arr.length;i++){
-        res = Math.min(res, arr[i] - arr[i-1]);
+    dfs(root.left);
+    if (pre == -1) {
+      pre = root.val;
+    } else {
+      ans = Math.min(ans, root.val - pre);
+      pre = root.val;
     }
-    return res;
+    dfs(root.right);
+  }
+  dfs(root);
+  return ans;
 };
