@@ -3,30 +3,15 @@
  * @param {number} val
  * @return {number}
  */
-// 测试用例
-var nums = [3,2,2,3];
-var val = 3;
-var removeElement = function(nums, val) {
-    let j = 0;
-    while(j < nums.length) {
-        if (nums[j] === val) {
-            nums.splice(j, 1);
-        } else {
-            j++
-        }
+var removeElement = function (nums, val) {
+  let left = 0, right = nums.length;
+  while (left < right) {
+    if (nums[left] === val) {
+      nums[left] = nums[right - 1];
+      right--;
+    } else {
+      left++;
     }
-    return nums.length;
-    // 以下双指针法
-    // let i = 0, j = 0;
-    // while(j < nums.length) {
-    //     if (nums[j] === val) {
-    //         j++;
-    //     } else {
-    //         nums[i] = nums[j];
-    //         i++;
-    //         j++;
-    //     }
-    // }
-    // return i;
+  }
+  return left;
 };
-console.log(removeElement(nums, val))

@@ -9,25 +9,24 @@
  * @param {TreeNode} root
  * @return {TreeNode}
  */
-var increasingBST = function(root) {
-    const tree = new TreeNode(null);
-    let current = tree;
-    
-    const visit = val => {
-        current.right = new TreeNode(val);
-        current = current.right
-    };
-    
-    const dfs = node => {
-        if(node === null) {
-            return;
-        }
-        dfs(node.left);
-        visit(node.val)
-        dfs(node.right);
-    }
-    
-    dfs(root);
-    
-    return tree.right;
+var increasingBST = function (root) {
+  const res = [];
+  inorder(root, res);
+
+  const dummyNode = new TreeNode(-1);
+  let currNode = dummyNode;
+  for (const value of res) {
+    currNode.right = new TreeNode(value);
+    currNode = currNode.right;
+  }
+  return dummyNode.right;
 };
+
+const inorder = (node, res) => {
+  if (!node) {
+    return;
+  }
+  inorder(node.left, res);
+  res.push(node.val);
+  inorder(node.right, res);
+}
