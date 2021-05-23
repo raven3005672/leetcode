@@ -3,15 +3,16 @@
  * @param {number[][]} queries
  * @return {number[]}
  */
-var xorQueries = function(arr, queries) {
-  let n = arr.length;
-  let pre = Array(n+1).fill(0);
-  for (let i = 1; i <= n; ++i) {
-    pre[i] = pre[i - 1] ^ arr[i - 1];
+ var xorQueries = function(arr, queries) {
+  const n = arr.length;
+  const xors = new Array(n + 1).fill(0);
+  for (let i = 0; i < n; i++) {
+      xors[i + 1] = xors[i] ^ arr[i];
   }
-  let ans = [];
-  for (const query of queries) {
-    ans.push(pre[query[0]] ^ pre[query[1] + 1]);
+  const m = queries.length;
+  const ans = new Array(m).fill(0);
+  for (let i = 0; i < m; i++) {
+      ans[i] = xors[queries[i][0]] ^ xors[queries[i][1] + 1];
   }
   return ans;
 };

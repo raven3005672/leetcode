@@ -4,16 +4,16 @@
  * @return {string[]}
  */
 var topKFrequent = function (words, k) {
-  let map = new Map();
-  words.forEach((item) => {
-    if (map.has(item)) {
-      map.set(item, map.get(item) + 1);
-    } else {
-      map.set(item, 1)
-    }
+  const cnt = new Map();
+  for (const word of words) {
+    cnt.set(word, (cnt.get(word) || 0) + 1);
+  }
+  const rec = [];
+  for (const entry of cnt.keys()) {
+    rec.push(entry);
+  }
+  rec.sort((word1, word2) => {
+    return cnt.get(word1) === cnt.get(word2) ? word1.localeCompare(word2) : cnt.get(word2) - cnt.get(word1);
   })
-  let key = [...map].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
-  key = key.map(item => item[0]);
-  return key.slice(0, k);
+  return rec.slice(0, k);
 };
-

@@ -10,18 +10,29 @@
  * @param {TreeNode} root2
  * @return {boolean}
  */
-var leafSimilar = function(root1, root2) {
-    function dfs(root, arr){
-        if(!root) return;
-        if(!root.left && !root.right){
-            arr.push(root.val);
-        }
-        dfs(root.left, arr);
-        dfs(root.right, arr);
-    }
-    var arr1 = [];
-    var arr2 = [];
-    dfs(root1, arr1);
-    dfs(root2, arr2);
-    return arr1.join('') === arr2.join('');
+var leafSimilar = function (root1, root2) {
+
+  const seq1 = [];
+  if (root1) {
+    dfs(root1, seq1);
+  }
+
+  const seq2 = [];
+  if (root2) {
+    dfs(root2, seq2);
+  }
+  return seq1.toString() === seq2.toString();
 };
+
+const dfs = (node, seq) => {
+  if (!node.left && !node.right) {
+    seq.push(node.val);
+  } else {
+    if (node.left) {
+      dfs(node.left, seq);
+    }
+    if (node.right) {
+      dfs(node.right, seq);
+    }
+  }
+}
