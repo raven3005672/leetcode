@@ -12,21 +12,18 @@
  * @param {function} isBadVersion()
  * @return {function}
  */
-var solution = function(isBadVersion) {
-    /**
-     * @param {integer} n Total versions
-     * @return {integer} The first bad version
-     */
-    return function(n) {
-        const check = (start, end) => {
-            if (end - start == 0) {return start};
-            let c = Math.floor(start / 2 + end / 2);
-            if (isBadVersion(c)) {
-                return check(start, c);
-            } else {
-                return check(c+1, end);
-            }
-        }
-        return check(1, n)
-    };
+var solution = function (isBadVersion) {
+  return function (n) {
+    let left = 1, right = n;
+    while (left < right) { // 循环直至区间左右端点相同
+      const mid = Math.floor(left + (right - left) / 2); // 防止计算时溢出
+      if (isBadVersion(mid)) {
+        right = mid; // 答案在区间 [left, mid] 中
+      } else {
+        left = mid + 1; // 答案在区间 [mid+1, right] 中
+      }
+    }
+    // 此时有 left == right，区间缩为一个点，即为答案
+    return left;
+  };
 };

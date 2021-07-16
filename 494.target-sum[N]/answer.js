@@ -3,7 +3,7 @@
  * @param {number} S
  * @return {number}
  */
-var findTargetSumWays = function(nums, S) {
+var findTargetSumWays = function (nums, S) {
   let dp = new Array(2001).fill(0);
   dp[nums[0] + 1000] = 1;
   dp[-nums[0] + 1000] += 1;
@@ -17,7 +17,7 @@ var findTargetSumWays = function(nums, S) {
     }
     dp = next;
   }
-  return S > 1000 ? 0 : dp[S+ 1000];
+  return S > 1000 ? 0 : dp[S + 1000];
 };
 
 /**
@@ -33,3 +33,23 @@ var findTargetSumWays = function(nums, S) {
  * dp[i][j - nums[i] + 1000] += dp[i - 1][j + 1000]
  * 时间复杂度：O(N * sum)，空间复杂度：O(sum)
  */
+
+var findTargetSumWays = function (nums, target) {
+  let sum = 0;
+  for (const num of nums) {
+    sum += num;
+  }
+  const diff = sum - target;
+  if (diff < 0 || diff % 2 !== 0) {
+    return 0;
+  }
+  const neg = Math.floor(diff / 2);
+  const dp = new Array(neg + 1).fill(0);
+  dp[0] = 1;
+  for (const num of nums) {
+    for (let j = neg; j >= num; j--) {
+      dp[j] += dp[j - num];
+    }
+  }
+  return dp[neg];
+};

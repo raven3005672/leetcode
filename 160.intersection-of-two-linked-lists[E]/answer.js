@@ -11,14 +11,14 @@
  * @param {ListNode} headB
  * @return {ListNode}
  */
-var getIntersectionNode = function(headA, headB) {
-    if(!headA || !headB) return null;
-    var a = headA, b = headB;
-    //相交则返回当前节点，否则返回null
-    //当a、b不相交，a为null，将headB赋值给a，此时b为b.next
-    while(a !== b) {
-        a = a ? a.next : headB;
-        b = b ? b.next : headA;
-    }
-    return a;
+var getIntersectionNode = function (headA, headB) {
+  if (headA === null || headB === null) {
+    return null;
+  }
+  let pA = headA, pB = headB;
+  while (pA !== pB) {
+    pA = pA === null ? headB : pA.next;
+    pB = pB === null ? headA : pB.next;
+  }
+  return pA;
 };

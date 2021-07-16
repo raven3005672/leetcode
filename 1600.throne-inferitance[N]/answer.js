@@ -1,7 +1,7 @@
 /**
  * @param {string} kingName
  */
-var ThroneInheritance = function(kingName) {
+var ThroneInheritance = function (kingName) {
 
 };
 
@@ -10,7 +10,7 @@ var ThroneInheritance = function(kingName) {
  * @param {string} childName
  * @return {void}
  */
-ThroneInheritance.prototype.birth = function(parentName, childName) {
+ThroneInheritance.prototype.birth = function (parentName, childName) {
 
 };
 
@@ -18,14 +18,14 @@ ThroneInheritance.prototype.birth = function(parentName, childName) {
  * @param {string} name
  * @return {void}
  */
-ThroneInheritance.prototype.death = function(name) {
+ThroneInheritance.prototype.death = function (name) {
 
 };
 
 /**
  * @return {string[]}
  */
-ThroneInheritance.prototype.getInheritanceOrder = function() {
+ThroneInheritance.prototype.getInheritanceOrder = function () {
 
 };
 
